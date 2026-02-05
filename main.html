@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero9</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="common.js"></script>
+    <script src="header.js"></script>
+
+    <link href="style.css" rel="stylesheet"> 
+</head>
+<body>
+    <main class="main_wrap">
+        <div class="container">
+            <div id="main_goods_section">
+                <h2>상품 리스트</h2>
+
+                <ul class="goods_list">
+
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        $.ajax({
+            url: SPRING_BOOT_URL + "/zero9/product-posts",
+            method: "GET",
+            dataType: "json",
+            success: function(res){
+
+                const GOODS_LIST = $("#main_goods_section .goods_list");
+                const GOODS_CONTENT_ARR = res.data.content;
+
+                if(GOODS_CONTENT_ARR.length != 0){
+
+                    let html = "";
+
+                    GOODS_CONTENT_ARR.forEach(item => {
+                        
+                        let imgElement;
+                        if(item.image == null){
+                            imgElement = `<img src="${ORIGIN_URL}/img/noimg.jpg">`;
+                        }else{
+                            imgElement = `<img src="${item.image}">`;
+                        }
+
+                        html += `
+                            <li>
+                                <a href="./goods/detail.html?id=${item.id}">
+                                    <div class="thumnail">
+                                        ${imgElement}
+                                    </div>
+                                    <p class="product_name">${item.title}</p>
+
+                                    <div class="product_data">
+                                        <span class="price">${Number(item.originalPrice).toLocaleString()}원</span>
+
+                                        <span class="hit">
+                                            ❤️
+                                            <i class="data">150</i>
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                        `;
+                    });
+
+                    GOODS_LIST.append(html);
+
+                }else{
+                    GOODS_LIST.append(`
+                        <li class="none_list">데이터가 없습니다</li>
+                    `);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("상품 리스트 불러오기 실패:", textStatus, errorThrown);
+
+                alert("상품 리스트를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
+            }
+        });
+    </script>
+</body>
+</html>

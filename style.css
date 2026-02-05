@@ -1,0 +1,148 @@
+@charset "utf-8";
+
+*{margin: 0; padding: 0; box-sizing: border-box;}
+
+html{font-size: 10px;}
+body{}
+
+a{text-decoration: none; color: inherit;}
+table{border-collapse: collapse;}
+	
+ul,
+ol,
+li{list-style: none}
+	
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{font-size: 1.6rem}
+	
+button{border: unset; background: transparent;}
+
+button,
+label{cursor: pointer}
+	
+input:not([type="radio"], [type="checkbox"]),
+select{height: 36px; padding: 0 10px; border-radius: 5px; border: 1px solid #9b9b9b;}
+
+input[type="radio"],
+input[type="checkbox"],
+label{vertical-align: middle}
+
+span{display: inline-block}
+
+iframe{border: none}
+
+figure{margin: 0}
+
+
+.container{width: 1200px; margin: 0 auto;}
+
+.important{color: orange;}
+.full{width: 100%}
+.half{width: 50%}
+.none{display: none}
+.hide{position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: polygon(0 0, 0 0, 0 0);}
+.clear_box::after{content: ''; display: block; clear: both}
+
+/* 헤더 */
+#header{border-bottom: 1px solid #ededed}
+#header .header_top{padding: 10px 0; display: flex; justify-content: space-between; font-size: 1.2rem;}
+
+/* 로그인 */
+#login_container{position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 300px;}
+#login_container h2{margin-bottom: 16px; text-align: center;}
+#login_container .input_box{}
+#login_container .input_box > *{display: block;}
+#login_container .input_box > * + *{margin-top: 4px;}
+#login_container .btn{height: 40px; border-radius: 5px; margin-top: 30px; text-align: center; background-color: #555; color: #fff;}
+
+/* 메인 */
+.main_wrap{padding: 50px 0 100px 0}
+
+#main_goods_section h2{font-size: 1.8rem; margin-bottom: 16px;}
+#main_goods_section .goods_list:not(:has(.none_list)){display: grid; grid-template-columns: repeat(4, 1fr); grid-gap: 16px}
+#main_goods_section .goods_list > li:not(.none_list){border-radius: 5px; box-shadow: 0 0 5px rgb(0 0 0 / 10%); background-color: #fff;}
+#main_goods_section .goods_list a{display: block;}
+#main_goods_section .goods_list .thumnail{height: 320px;}
+#main_goods_section .goods_list .thumnail img{width: 100%; height: 100%; object-fit: cover;}
+#main_goods_section .goods_list .thumnail ~ *{padding: 16px; border-top: 1px solid rgb(0 0 0 / 10%);}
+#main_goods_section .goods_list .product_name{font-weight: 500; font-size: 14px; letter-spacing: -1px; color: #999;}
+#main_goods_section .goods_list .product_data{display: flex; justify-content: space-between; align-items: center;}
+#main_goods_section .goods_list .product_data .price{font-weight: 700; letter-spacing: -1px; font-size: 1.4rem; color: #979797;}
+#main_goods_section .goods_list .product_data .hit{padding: 10px; font-size: 12px; border-radius: 5px; background: #f5f5f5;}
+#main_goods_section .goods_list .product_data .hit .icon{color: red;}
+#main_goods_section .goods_list .product_data .hit .data{font-style: normal;}
+
+#main_goods_section .goods_list .none_list{padding: 16px; text-align: center; font-size: 1.4rem; background-color: #fafafa; color: #555;}
+
+/* 상품 상세 */
+#order_detail_main{}
+#order_detail_main .container{display: flex; justify-content: space-between; gap: 0 32px}
+#order_detail_main .container > *{flex: 1}
+#order_detail_main .thumnail_box{position: sticky; top: 16px; height: 520px; border: 1px solid #ededed; background-color: #ededed;} 
+#order_detail_main .thumnail_box img{width: 100%; height: 100%; object-fit: cover;}
+#order_detail_main .goods_data_box{}
+#order_detail_main .goods_data_box .goods_category{font-size: 13px; color: #888;}
+#order_detail_main .goods_data_box .goods_title{margin-top: 10px; font-size: 24px; font-weight: 600; color: #333;}
+#order_detail_main .goods_data_box .product_name{font-size: 1.2rem; color: #777}
+#order_detail_main .goods_data_box .goods_discription{padding: 16px; margin: 16px 0 36px; height: 160px; border-radius: 10px; overflow: auto; font-size: 14px; background-color: #ebebeb; color: #333;}
+#order_detail_main .goods_data_box > .price{font-size: 19px; letter-spacing: -1px;}
+#order_detail_main .goods_data_box .option_box{margin-top: 32px; padding-top: 32px; border-top: 1px solid #d9d9d9;}
+#order_detail_main .goods_data_box .option_box select{width: 100%; height: 40px;}
+
+#order_detail_main .goods_data_box .option_box .select_box{position: relative; margin-top: 10px; padding: 16px; border: 1px solid #d9d9d9; border-radius: 10px;}
+#order_detail_main .goods_data_box .option_box .select_box .option_name{font-size: 14px;}
+#order_detail_main .goods_data_box .option_box .select_box .option_data{display: flex; justify-content: space-between; align-items: center; margin-top: 10px;}
+#order_detail_main .goods_data_box .option_box .select_box .price{font-weight: 500; font-size: 1.3rem;}
+#order_detail_main .goods_data_box .option_box .select_box input[type=number]{width: 50px; height: 30px;}
+
+#order_detail_main .goods_data_box .option_final_box{margin-top: 16px; padding-top: 45px; border-top: 1px solid #d9d9d9;}
+#order_detail_main .goods_data_box .option_final_box .total_price{text-align: right;}
+#order_detail_main .goods_data_box .option_final_box .total_price > *{display: inline-block;}
+#order_detail_main .goods_data_box .option_final_box .total_price .txt{margin-right: 10px; font-size: 14px;}
+#order_detail_main .goods_data_box .option_final_box .total_price .data_txt{}
+#order_detail_main .goods_data_box .option_final_box .total_price .data_txt .data{font-size: 26px;}
+#order_detail_main .goods_data_box .option_final_box .clear_btn_box{display: flex; gap: 0 16px; margin-top: 16px;}
+#order_detail_main .goods_data_box .option_final_box .clear_btn_box button{height: 50px; border-radius: 10px; background-color: #ededed;}
+#order_detail_main .goods_data_box .option_final_box .clear_btn_box #ggim{width: 50px}
+#order_detail_main .goods_data_box .option_final_box .clear_btn_box #order_btn{flex: 1}
+
+/* 주문서 */
+#order_main{}
+#order_main h2{margin-bottom: 60px; text-align: center; font-size: 2.8rem;} 
+#order_main .order_section{}
+#order_main .order_section h3{margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #333;}
+#order_main .order_section .order_list{}
+#order_main .order_section .order_list > li{display: flex; align-items: center; font-size: 14px;}
+#order_main .order_section .order_list > li + li{margin-top: 32px}
+#order_main .order_section .order_list .title{width: 150px; font-weight: 500; color: #555}
+#order_main .order_section .order_list .data{flex: 1; color: #333}
+#order_main .order_section .order_list .data .info{font-size: 12px; color: #777}
+
+#order_payment_section{display: flex; margin-top: 120px; gap: 0 32px}
+#order_payment_section .section_box{flex: 1}
+#order_payment_section .payment_section{width: 300px}
+#order_payment_section .goods_order_option_list{padding: 32px; background-color: #f3f3f3;}
+#order_payment_section .goods_order_option_list .list_box{padding: 16px; border-radius: 16px; background-color: #fff;}
+#order_payment_section .goods_order_option_list .goods_option_name{font-weight: 500; font-size: 18px; letter-spacing: -1px;}
+#order_payment_section .goods_order_option_list .goods_product_name{font-size: 14px; letter-spacing: -1px; color: #555}
+#order_payment_section .goods_order_option_list .option_data{display: flex; align-items: center; margin-top: 16px}
+#order_payment_section .goods_order_option_list .option_data .price{font-size: 1.3rem; font-weight: 600;}
+#order_payment_section .goods_order_option_list .option_data .cnt{font-size: 14px; color: #555}
+#order_payment_section .goods_order_option_list .option_data .cnt::before{content: '|'; display: inline-block; transform: translateY(-1px); margin: 0 5px; color: #d9d9d9; font-size: 14px;}
+#order_payment_section .goods_order_option_list .option_data .cnt .data{}
+#order_payment_section .payment_section{}
+#order_payment_section .payment_section .final_payment_price{display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding: 16px; background-color: #f3f3f3;}
+#order_payment_section .payment_section .final_payment_price .tit{font-size: 14px; color: #666; letter-spacing: -1px;}
+#order_payment_section .payment_section .final_payment_price .data{color: #555}
+#order_payment_section .payment_section .final_payment_price .data b{font-size: 24px}
+#order_payment_section .payment_section #payment_btn{width: 100%; height: 50px; margin-top: 16px; border-radius: 10px; background-color: #555; color: #fff}
+
+/* 결제 상태 */
+#payment_success_main{}
+#payment_success_main h2{text-align: center; font-size: 2.0rem;}
+#payment_success_main .success_container{position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+#payment_success_main a{display: block; margin-top: 45px; padding: 12px 70px; border-radius: 5px; text-align: center; font-size: 1.2rem; text-align: center; background-color: #555; color: #fff;}

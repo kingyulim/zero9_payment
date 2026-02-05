@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../common.js"></script>
+    <script src="../header.js"></script>
+    <script>
+        if(ACCESS_TOKEN){
+            alert("로그인 하셨습니다.");
+
+            return; 
+        }
+    </script>
+
+    <link href="../style.css" rel="stylesheet"> 
+</head>
+<body>
+    <form id="login_form">
+        <div id="login_container">
+            <h2>로그인</h2>
+
+            <div class="input_box">
+                <input id="id" class="full" type="text" placeholder="아이디">
+                <input id="password" class="full" type="password" placeholder="비밀번호">
+            </div>
+
+            <button id="login_btn" class="btn full" type="submit">로그인</button>
+        </div>
+    </form>
+
+    <script>
+        $("#login_form").on("submit", function(e){
+            e.preventDefault();
+
+            const ID = $("#id").val();
+            const PASSWORD = $("#password").val();
+
+            if(ID == ''){
+                alert("아이디를 입력해주세요.");
+
+                return;
+            }
+
+            if(PASSWORD == ''){
+                alert("비밀번호를 입력해주세요.")
+
+                return;
+            }
+
+            $.ajax({
+                url: SPRING_BOOT_URL + "/zero9/auth/login",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    loginId: ID,
+                    password: PASSWORD
+                }),
+                success: function(res) {
+                    console.log("로그인 응답:", res);
+
+                    if (!res.success) {
+                        alert(res.message || "로그인 실패");
+
+                        return;
+                    }
+
+                    const token = res.data.token;
+
+                    // 토큰 저장
+                    localStorage.setItem("accessToken", token);
+
+                    alert("로그인 성공");
+
+                    // 페이지 이동
+                    location.href = ORIGIN_URL + "/main.html";
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("로그인 에러:", textStatus, errorThrown);
+
+                    alert("로그인 중 오류가 발생했습니다.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
