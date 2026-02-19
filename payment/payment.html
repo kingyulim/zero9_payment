@@ -20,11 +20,10 @@
                 Authorization: ACCESS_TOKEN
             },
             success: function ({ data }) {
-                console.log(data);
 
                 // Toss Payments 초기화
                 const clientKey = "test_ck_DpexMgkW36bkOzxbDNnw3GbR5ozO";
-                const customerKey = "ferSgSKD4kJNg_7qbhLdp";
+                const customerKey = "I45b2nHLcZW9Ks4Sepwlv";
 
                 const tossPayments = TossPayments(clientKey);
                 const payment = tossPayments.payment({ customerKey });

@@ -8,7 +8,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="common.js"></script>
     <script src="header.js"></script>
-
+     
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet"> 
 </head>
 <body>
@@ -30,7 +31,7 @@
             method: "GET",
             dataType: "json",
             success: function(res){
-
+                
                 const GOODS_LIST = $("#main_goods_section .goods_list");
                 const GOODS_CONTENT_ARR = res.data.content;
 
@@ -59,8 +60,8 @@
                                         <span class="price">${Number(item.originalPrice).toLocaleString()}원</span>
 
                                         <span class="hit">
-                                            ❤️
-                                            <i class="data">150</i>
+                                            <i class="fa-solid fa-heart"></i>
+                                            <i class="data">${item.favoriteCount}</i>
                                         </span>
                                     </div>
                                 </a>

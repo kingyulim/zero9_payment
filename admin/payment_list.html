@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>결제 내역 리스트</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../common.js"></script>
+    <script src="admin_header.js"></script>
+
+    <link href="../style.css" rel="stylesheet"> 
+</head>
+<body>
+    <main id="admin_payment_main" class="admin_main">
+        <h2>결재 내역 리스트</h2>
+
+        <ul class="list">
+
+        </ul>
+    </main>
+
+    <script>
+        const CANCEL_REASON_LIST = [
+            '단순 변심',
+            '고객에 의한 관리자 취소'
+        ];
+
+        $.ajax({
+            url: SPRING_BOOT_URL + "/zero9/admin/payments",
+            method: "GET",
+            dataType: "json",
+            headers: {
+                Authorization: ACCESS_TOKEN
+            },
+            success: function(res){
+                const PAYMENT_LIST = res.data;
+
+                console.log(PAYMENT_LIST)
+                
+                const PAYMENT_LIST_ELEMENT = $('#admin_payment_main .list');
+                
+                let LI_ELEMENT = '';
+
+                if(PAYMENT_LIST.length != 0){
+                   PAYMENT_LIST.forEach(item => {
+                        let payment_cancel_element = '';
+
+                        if(item.orderStatus === 'PAID'){
+                            payment_cancel_element = `
+                                <div class="btn_box">
+                                    <button class="btn" type="button" data-order_id="${item.orderId}">결제취소</button>
+                                </div>
+                            `;
+                        }
+
+                        LI_ELEMENT += `
+                            <li>
+                                <p class="nickname">${item.nickname}</p>
+
+                                <div class="order_data">
+                                    <p class="order_no">주문 번호: ${item.orderNo}</p>
+                                    <p class="payment_no">결제 번호: ${item.paymentKey}</p>
+                                </div>
+
+                                <div class="option_data">
+                                    <p class="option">${item.productOptionName}</p>
+                                    <p class="total_amount">${item.totalAmount.toLocaleString()}</p>
+                                </div>
+                                
+                                ${payment_cancel_element}
+
+                                <span class="status">${item.orderStatus}</span>
+                            </li>
+                        `;
+
+                        
+                    });
+                }else{
+
+                }
+
+                PAYMENT_LIST_ELEMENT.append(LI_ELEMENT);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("결제 내역 리스트 불러오기 실패:", textStatus, errorThrown);
+
+                alert("결제 내역 리스트를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
+            }
+        });
+
+        // 팝업 열기
+        $(document).on("click", "#admin_payment_main .list .btn_box .btn", function () {
+
+            popupLayer("admin_payment_list_popup");
+
+            const THIS_ORDER_ID = $(this).data('order_id');
+            $("#admin_payment_list_popup").data('order_id', THIS_ORDER_ID);
+
+            const ELEMENT_LAYER = `
+                <select id="payment_cancel_select">
+                    <option value="">선택해주세요</option>    
+                </select>
+                <button id="payment_cancel_clear_btn" type="button">확인</button>
+            `;
+
+            $("#admin_payment_list_popup .inner_wrapper").html(ELEMENT_LAYER);
+
+            let cancel_option = '';
+            $.each(CANCEL_REASON_LIST, function (key, value) {
+                cancel_option += `<option value="${key}">${value}</option>`;
+            });
+
+            $("#payment_cancel_select").append(cancel_option);
+        });
+        
+        $(document).on('click', '#payment_cancel_clear_btn', function () {
+
+            const reason_value = $("#payment_cancel_select").val();
+            const orderId = $("#admin_payment_list_popup").data('order_id');
+
+            if (!reason_value) {
+                alert("취소 사유를 선택해주세요.");
+
+                return;
+            }
+
+            $.ajax({
+                url: SPRING_BOOT_URL + "/zero9/orders/" + orderId + "/cancel",
+                type: "PUT",
+                contentType: "application/json",
+                dataType: "json",
+                headers: {
+                    Authorization: ACCESS_TOKEN
+                },
+                data: JSON.stringify({
+                    canceledReason: CANCEL_REASON_LIST[reason_value]
+                }),
+                success: function (res) {
+                    alert(res.message);
+                    
+                    if(res.success){
+                        $("#admin_payment_list_popup").remove();
+                    }
+                },
+                error: function (xhr) {
+                    console.error("결제 취소 에러:", xhr);
+
+                    alert("결제 취소 중 오류가 발생했습니다.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
