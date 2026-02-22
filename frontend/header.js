@@ -37,7 +37,7 @@ $(document).ready(function(){
                 <nav class="header_nav">
                     <a href="${ORIGIN_URL}/goods/list.html">상품판매 게시물</a>
                     <a href="${ORIGIN_URL}/gp_post/list.html">공동구매 게시물</a>
-                    <a href="#none">범용 게시물</a>
+                    <a href="${ORIGIN_URL}/notice/list.html">범용 게시물</a>
                 </nav>
             </div>
         </header>

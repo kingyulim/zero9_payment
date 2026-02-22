@@ -354,6 +354,33 @@ figure{margin: 0}
 #gp_post_view_main .sale_link_box a:hover{font-weight: 600; color: #333}
 #gp_post_view_main .content_box{margin-top: 100px; font-size: 1.6rem}
 
+
+/* ====================== 상품 판매 게시물 ====================== */
+
+#product_post_main{}
+#product_post_main .list_wrapper{}
+#product_post_main .list_wrapper > li{}
+#product_post_main .list_wrapper > li + li{margin-top: 32px; padding-top: 32px; border-top: 1px solid #ededed;}
+#product_post_main .list_wrapper a{display: flex;}
+#product_post_main .img_box{width: 200px; height: 200px}
+#product_post_main .img_box img{width: 100%; height: 100%; object-fit: cover;}
+#product_post_main .detail_box{padding-left: 16px;}
+#product_post_main .detail_box .title{font-size: 2.0rem; font-weight: bold; color: #333;}
+#product_post_main .detail_box .price{margin-top: 3px; font-size: 1.6rem; color: #555;}
+#product_post_main .detail_box .ggim_data{margin-top: 50px; font-size: 1.4rem;}
+#product_post_main .detail_box .ggim_data .icon{color: red}
+#product_post_main .detail_box .ggim_data .data{font-weight: 600;}
+
+/* ====================== 공지사항 ====================== */
+
+#notice_main{}
+#notice_main .list_wrapper{font-size: 1.4rem;}
+#notice_main .list_wrapper > li{}
+#notice_main .list_wrapper > li + li{margin-top: 16px; padding-top: 16px; border-top: 1px solid #ededed}
+#notice_main .list_wrapper a{display: flex; }
+#notice_main .list_wrapper .title{flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#notice_main .list_wrapper .datetime{width: 160px; text-align: right; color: #999;}
+
 /* ====================== 관리자 ====================== */
 
 .admin_main{position: absolute; left: 300px; top: 37px; width: calc(100% - 300px); height: calc(100% - 37px); padding: 16px; overflow: auto; background-color: #fff}
